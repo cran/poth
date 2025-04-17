@@ -17,14 +17,15 @@
 #' @return
 #' A ggplot2 object.
 #'
-#' @author Augustine Wigle \email{amhwigle@uwaterloo.ca},
+#' @author Augustine Wigle \email{amhwigle@@uwaterloo.ca},
 #'   Guido Schwarzer \email{guido.schwarzer@@uniklinik-freiburg.de}
 #'
 #' @references
-#' Wigle, A., Béliveau, A., Salanti, G., Rücker, G., Schwarzer, G., Mavridis, D.,
-#' Nikolakopoulou, A. (2024):
-#' Precision of Treatment Hierarchy: A Metric for Quantifying Uncertainty in Treatment
-#' Hierarchies in Network Meta-Analysis
+#' Wigle A, Béliveau A, Salanti G, Rücker G, Schwarzer G, Mavridis D,
+#' Nikolakopoulou A (2024):
+#' Precision of treatment hierarchy: A metric for quantifying uncertainty in
+#' treatment hierarchies in network meta-analysis.
+#' Preprint on arXiv, \doi{10.48550/arXiv.2501.11596}
 #'
 #' @examples
 #' library("netmeta")

@@ -1,18 +1,18 @@
-#' Plot cumulative precision of treatment hierarchy (POTH) values
+#' Plot best k treatments precision of treatment hierarchy (POTH) values
 #'
 #' @description
-#' Plot cumulative precision of treatment hierarchy (POTH) values
+#' Plot best k treatments precision of treatment hierarchy (POTH) values
 #'
-#' @param x R object of class \code{cumul.poth}.
+#' @param x R object of class \code{bestk.poth}.
 #' @param labels A logical indicating whether treatment names should be
 #'   shown in the plot.
 #' @param nchar.trts Number of characters to keep for each treatment name if labels = TRUE.
-#' @param digits Minimal number of significant digits for cumulative POTH, see
+#' @param digits Minimal number of significant digits for best k treatments POTH, see
 #'   \code{\link{print.default}}.
 #' @param \dots Additional arguments (ignored).
 #'
 #' @details
-#' Plot results of cumulative method for precision of treatment hierarchy (POTH) metric
+#' Plot results of best k treatments method for precision of treatment hierarchy (POTH) metric
 #' (Wigle et al., 2024).
 #'
 #' @return
@@ -22,10 +22,11 @@
 #'   Guido Schwarzer \email{guido.schwarzer@@uniklinik-freiburg.de}
 #'
 #' @references
-#' Wigle, A., Béliveau, A., Salanti, G., Rücker, G., Schwarzer, G., Mavridis, D.,
-#' Nikolakopoulou, A. (2024):
-#' Precision of Treatment Hierarchy: A Metric for Quantifying Uncertainty in Treatment
-#' Hierarchies in Network Meta-Analysis
+#' Wigle A, Béliveau A, Salanti G, Rücker G, Schwarzer G, Mavridis D,
+#' Nikolakopoulou A (2024):
+#' Precision of treatment hierarchy: A metric for quantifying uncertainty in
+#' treatment hierarchies in network meta-analysis.
+#' Preprint on arXiv, \doi{10.48550/arXiv.2501.11596}
 #'
 #' @examples
 #' \donttest{
@@ -34,26 +35,27 @@
 #' net1 <- netmeta(TE, seTE, treat1.long, treat2.long, studlab,
 #'   data = Senn2013, sm = "MD", random = FALSE)
 #'
-#' # Cumulative method
-#' c1 <- cumul(poth(net1))
-#' c1
-#' plot(c1)
-#' plot(c1, labels = TRUE)
-#' c2 <- cumul(poth(net1), sort = FALSE)
-#' c2
-#' plot(c2)
-#' plot(c2, labels = TRUE)
+#' # Best k treatments method
+#' bk1 <- bestk(poth(net1))
+#' bk1
+#' plot(bk1)
+#' plot(bk1, labels = TRUE)
+#' bk2 <- bestk(poth(net1), sort = FALSE)
+#' bk2
+#' plot(bk2)
+#' plot(bk2, labels = TRUE)
 #' }
-#' @method plot cumul.poth
+#' @method plot bestk.poth
 #' @export
 
-plot.cumul.poth <- function(x, labels = FALSE, nchar.trts = 4, digits = 3, ...) {
+plot.bestk.poth <- function(x,
+                            labels = FALSE, nchar.trts = 4, digits = 3, ...) {
 
-  chkclass(x, "cumul.poth")
+  chkclass(x, "bestk.poth")
   chknumeric(nchar.trts, min = 1, length = 1)
 
-  poth_cum <- x$poth_cum[-1]
-  df <- data.frame(poth = poth_cum, id = seq_along(poth_cum) + 1,
+  poth_bestk <- x$poth_bestk[-1]
+  df <- data.frame(poth = poth_bestk, id = seq_along(poth_bestk) + 1,
                    trt = x$trt[-1])
   #
   if (labels) {
@@ -79,7 +81,7 @@ plot.cumul.poth <- function(x, labels = FALSE, nchar.trts = 4, digits = 3, ...) 
     scale_y_continuous(limits = c(0, 1)) +
     theme_bw() +
     theme(legend.position = "none") +
-    labs(x = xlab, y = "cPOTH")
+    labs(x = xlab, y = "POTH")
   #
   if (!labels)
     p <- p + scale_x_continuous(breaks = 2:max(df$id), minor_breaks = NULL)
